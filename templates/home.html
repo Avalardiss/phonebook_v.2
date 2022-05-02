@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" type="image" href="{% static 'img/icon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" > 
+    <script type="text/javascript" language="JavaScript"src="{% static 'js/bootstrap.min.js' %}"></script> 
+    <script type="text/javascript" language="JavaScript" src="/static/js/jquery-1.7.2.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Телефонный справочник</title>
+  </head>
+
+  <body>
+    <header>
+        <div class="head">
+        <a href="{% url 'phone:home' %}"><img src="/static/img/logo.png" width="50px"></a>
+        <a href="{% url 'phone:home' %}"> Телефонный справочник<a/>
+        </div>
+    </header>
+
+<section class="sticky">
+<!------поисковая строка-------->
+    
+
+    <form  action="{% url 'phone:search_results' %}" method="get">
+        <div class="search">
+        <input required="true" name="q" type="text" autofocus class="form-control" placeholder="Введите данные для поиска" value="{{ qwery }}">
+        <button type="submit" class="{% url 'phone:search_results' %}">Поиск</button>
+        </div>
+    </form>
+
+
+<table class="table_phone2">
+    <thead class="table_thead">
+        <tr>
+        <th class="th1" >Фамилия, Имя, Отчество</th>
+        <th class="th2" >Сотовый <br> телефон</th>
+        <th class="th3" >Городской <br> телефон</th>
+        <th class="th4" >Внутренний <br> телефон</th>
+        <th class="th5" >IP телефон</th>
+        <th class="th6" >E-mail</th>
+        <th class="th7" >Кабинет</th>
+        <th class="th8">Телефон <br>конференц-связи</th>
+        <th class="th9" >Спутниковый <br> телефон</th>
+        </tr>
+    </thead>
+</table>
+</section>
+
+<!------вывод таблицы абонентов--------
+<h2>Список абонентов</h2>-->
+
+<table class="table_phone">
+    <thead class="table_thead">
+        <th class="th1" >Фамилия, Имя, Отчество</th>
+        <th class="th2" >Сотовый <br> телефон</th>
+        <th class="th3" >Городской <br> телефон</th>
+        <th class="th4" >Внутренний <br> телефон</th>
+        <th class="th5" >IP телефон</th>
+        <th class="th6" >E-mail</th>
+        <th class="th7" >Кабинет</th>
+        <th class="th8">Телефон <br>конференц-связи</th>
+        <th class="th9" >Спутниковый <br> телефон</th>
+    </thead>
+
+{% for abonent in object_list %}
+        {% if abonent.name == "1. Администрация" %}
+        <tr class="header">
+        <td  class="red" colspan="9"> {{ abonent.name }} </td>
+        </tr>
+
+        {% elif abonent.name == "1.1. Канцелярия" %}
+        <tr class="header" style="background-color: rgba(18, 138, 7, 0.1);cursor: pointer">
+        <td class="green" colspan="9">{{ abonent.name }}</td>
+        </tr>
+
+        {% elif abonent.name == "1.1.1. Сектор документации" %}
+        <tr class="header" style="background-color: rgba(84, 21, 179, 0.1);cursor: pointer;">
+        <td  class="purple" colspan="9" >{{ abonent.name }}</td>
+        </tr>
+
+        {% elif abonent.name == "1.1.2. Архив" %}
+        <tr class="header" style="background-color: rgba(84, 21, 179, 0.1);cursor: pointer;">
+        <td  class="purple" colspan="9" >{{ abonent.name }}</td>
+        </tr>
+
+        {% elif abonent.name == "1.2. Бухгалетрия" %}
+        <tr class="header" style="background-color: rgba(18, 138, 7, 0.1);cursor: pointer">
+        <td class="green" colspan="9">{{ abonent.name }}</td>
+        </tr>
+
+        {% elif abonent.name == "1.3. Юридический отдел" %}
+        <tr class="header" style="background-color: rgba(18, 138, 7, 0.1);cursor: pointer">
+        <td class="green" colspan="9">{{ abonent.name }}</td>
+        </tr>
+
+        {% elif abonent.name == "2. Службы логистики и транспорта" %}
+        <tr class="header">
+        <td  class="red" colspan="9"> {{ abonent.name }} </td>
+        </tr>
+
+        {% elif abonent.name == "2.1. Отдел логистики" %}
+        <tr class="header" style="background-color: rgba(18, 138, 7, 0.1);cursor: pointer">
+        <td class="green" colspan="9">{{ abonent.name }}</td>
+        </tr>
+
+        {% elif abonent.name == "2.1.1. Сектор транспортно-складских операций" %}
+        <tr class="header" style="background-color: rgba(84, 21, 179, 0.1);cursor: pointer;">
+        <td  class="purple" colspan="9" >{{ abonent.name }}</td>
+        </tr>
+
+        {% elif abonent.name == "2.1.1.1. Склад №1 Сбыта" %}
+        <tr class="header" style="background-color: rgba(21, 116, 179, 0.1);cursor: pointer;">
+        <td  class="blue" colspan="9" >{{ abonent.name }}</td>
+        </tr>
+
+        {% elif abonent.name == "2.1.1.2. Склад №2 Ответственного хранения" %}
+        <tr class="header" style="background-color: rgba(21, 116, 179, 0.1);cursor: pointer;">
+        <td  class="blue" colspan="9" >{{ abonent.name }}</td>
+        </tr>
+
+
+
+        {% else %}
+    <tr class="hidden">
+
+        <td  class="td1" valign="center" align="center"> {{ abonent.name }} </td>
+        <td  class="td2" valign="center" align="center"> {{ abonent.mobile_phone }} </td>
+        <td  class="td3" valign="center" align="center"> {{ abonent.gorod_phone }} </td>
+        <td  class="td4" valign="center" align="center"> {{ abonent.internal_phone }} </td>
+        <td  class="td5" valign="center" align="center"> {{ abonent.IP_phone }} </td>
+        <td  class="td6" valign="center" align="center"> {{ abonent.zvks }} </td>
+        <td  class="td7" valign="center" align="center"> {{ abonent.pts_phone }} </td>
+        <td  class="td8" valign="center" align="center"> {{ abonent.conference_phone }} </td>
+        <td  class="td9" valign="center" align="center"> {{ abonent.zas_phone }} </td>
+    </tr>
+    {% endif %}
+{% endfor %}
+</table>
+
+<script>
+
+function isHidden(el) {
+    var width = el.offsetWidth, height = el.offsetHeight,
+    tr = el.nodeName.toLowerCase() === "tr"
+    return width === 0 && height === 0 && !tr ?
+    true : width > 0 && height > 0 && !tr ? false : getRealDisplay(el)
+}
+
+
+
+$(this).nextUntil('tr.header')
+$(this).toggleClass('expand').nextUntil('tr.header').toggle('fast');
+  $('.header').click(function () {
+    var $this = $(this);
+    $(this).nextUntil('tr.header').toggle('fast').promise().done(function () {
+        $this.find('span').text(function (_, value) {
+            return value == '-' ? '+' : '-'
+        });
+    });
+});
+
+
+</script>
+
+</body>
+</html>
